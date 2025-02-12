@@ -12,6 +12,7 @@
 }
 
 .timeline-wrapper{
+    position: relative;
     max-width: 100vw;
     height: 88vh;
 
@@ -20,9 +21,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
+
+    overflow-x: hidden;
 }
 
 .timeline{
+    position: absolute;
     height: 0.12rem;
     padding: 0.4rem;
     background-color: #888;
@@ -40,12 +44,14 @@
 
 .timeline li::before,
 .timeline li::after,
+.timeline li.title,
 data{
     position: absolute;
 
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%) scale(var(--scale));
+    transition: 0.5s ease;
 }
 .timeline li::before{
     top: 1rem;
@@ -55,9 +61,37 @@ data{
     height: 1rem;
     background-color: #888;
 }
+
+.timeline li:nth-child(even)::before{
+    top: -1rem;
+}
+.timeline li:hover::before{
+    background-color: var(--primary-color);
+}
 .timeline li::after{
     content: attr(data-date);
     top: -3.4rem;
+}
+.timeline li:nth-child(odd)::after{
+    top: 3.4rem;
+}
+.timeline li:hover::after,
+.timeline li.title{
+    background-color: var(--primary-color);
+}
+
+.timeline li.title{
+    top: 2.4rem;
+    font: 600 1.1rem 'poppins', sans-serif;
+    white-space: pre;
+    opacity: 0;
+}
+.timeline li:nth-child(odd)>.title{
+    top: 2.4rem;
+}
+
+.timeline li:hover.title{
+    opacity: 1;
 }
 
 .data{
@@ -66,9 +100,56 @@ data{
     background-color: #888;
     color: #fff;
     border-radius: 50%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+
     overflow: hidden;
+
+    transition: 0.3s ease;
+}
+.timeline li:hover .data{
+    background-color: var(--primary-color);
+    --scale: 1.2;
+    cursor: pointer;
+    z-index: 200;
 }
 
+.data.show{
+    width: 22rem;
+    height: 22rem;
+    border-radius: 1rem;
+    padding: 1rem;
+    background-image: linear-gradient(45deg,var(--primary-color), magenta);
 
+    box-shadow: 0 0.1rem 0.4rem #0004;
 
+    z-index: 100;
+
+}
+
+.data h3{
+    text-transform: capitalize;
+}
+
+.data p{
+    background-color: #fff3;
+    padding: 1rem;
+    border-radius: 1rem;
+    margin-left: 0.7rem;
+}
+
+.data.show p{
+    margin-left: 0;
+}
+
+.data.close{
+    align-self: flex-start;
+    background-color: #00a1ff;
+    padding: 0.5rem 0.8rem;
+    border-radius: 2rem;
+    font-size: 1rem;
+
+}
 

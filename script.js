@@ -1,23 +1,12 @@
-document.addEventListener("DOMContentLoaded", function() {
-    const events = document.querySelectorAll(".event");
-    let currentEventIndex = 0;
+const timeline_wrapper= document.querySelector('.timeline-wrapper'),
+timelines= document.querySelectorAll('.timeline li .data');
 
-    // Show the first event initially
-    events[currentEventIndex].classList.add("active");
+for(const time of timelines){
+    time.onclick = ()=> time.classList.toggle('show');
+}
 
-    document.getElementById("next-button").addEventListener("click", function() {
-        // Hide the current event
-        events[currentEventIndex].classList.remove("active");
-
-        // Increment the index to show the next event
-        currentEventIndex++;
-
-        // If we reach the end of the events, reset to the first event
-        if (currentEventIndex >= events.length) {
-            currentEventIndex = 0;
-        }
-
-        // Show the next event
-        events[currentEventIndex].classList.add("active");
-    });
-});
+timeline_wrapper.addEventListener('mousemove', (event)=>{
+    const timeline = document.querySelector('.timeline')
+    let scroll_width = event.pageX / timeline_wrapper.clientWidth * (timeline_wrapper.clientWidth - timeline.clientWidth );
+    timeline.style.left = scroll_width.toFixed(1)+'px'
+})
