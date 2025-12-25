@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Valentine</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="text/babel">
+    const { useState } = React;
+    const { createRoot } = ReactDOM;
+
+    const NO_PHRASES = ["No 💔", "Pretty please? 🥺", "But we'd be so cute together! 💕"];
+
+    function App() {
+      const [noClicks, setNoClicks] = useState(0);
+      const [isValentine, setIsValentine] = useState(false);
+      const yesButtonSize = (noClicks * 20) + 16;
+
+      return (
+        <div style={{display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", height: "100vh", textAlign: "center"}}>
+          {!isValentine ? (
+            <>
+              <h1>Will you be my Valentine? 💘</h1>
+              <button onClick={() => setIsValentine(true)} style={{fontSize: `${yesButtonSize}px`, padding: "15px 30px", background: "green", color: "white", border: "none", borderRadius: "10px"}}>
+                Yes 😍
+              </button>
+              <button onClick={() => setNoClicks(c => c + 1)} style={{padding: "15px 30px", background: "red", color: "white", border: "none", borderRadius: "10px"}}>
+                {NO_PHRASES[noClicks] || "No 💔"}
+              </button>
+            </>
+          ) : (
+            <h1 style={{color: "#d1386f", fontSize: "48px"}}>Yay!!! 💖🎉</h1>
+          )}
+        </div>
+      );
+    }
+
+    createRoot(document.getElementById("root")).render(<App />);
+  </script>
+</body>
+</html>
